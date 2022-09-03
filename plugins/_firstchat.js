@@ -1,43 +1,42 @@
 let moment = require('moment-timezone')
-let fetch = require ('node-fetch')
+let fetch = require('node-fetch')
+let wm = global.wm
+let logo = global.logo
 let handler = m => m
 
 handler.all = async function (m) {
+let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
+let username = conn.getName(who)
 
     if (m.chat.endsWith('broadcast')) return
     if (m.fromMe) return
     if (m.isGroup) return
     if (db.data.settings.groupOnly) return
     let user = global.db.data.users[m.sender]
-    let name = conn.user.name
-    let hao = `*Official Bot By @${'0'.split('@')[0]}* 
-*Powered By @${global.owner[1].split('@')[0]}*`
     if (new Date - user.pc < 86400000) return // setiap 24 jam sekali
-        await conn.send3ButtonLoc(m.chat, 'https://telegra.ph/file/606ecba4019ea293aa26f.jpg', ` ${ucapan()}, @${m.sender.split`@`[0]}
- ${user.banned ? 'kamu dibanned' : `
-Saya Adalah Cute, Bot What'sapp Yang Bisa Anda Gunakan Untuk Membuat Sticker, Mendownload Sesuatu, Bermain Game, Dll.
+    await this.send3ButtonLoc(m.chat, await conn.resize(await (await fetch('https://telegra.ph/file/aa93487aec7b3e106b87b.jpg')).buffer(), 300, 200), `
+*hai, ${ucapan()}*
 
-Tolong Jangan Spam, Telepon, Vc, Kirim Virtex.`} 
- `.trim(), hao, user.banned ? 'Pemilik Bot' : 'Menu', user.banned ? '!owner' : '.menu', 'Panduan penggunaan', '.tutorbot', 'Verify', '.daftar ${conn.getName(m.sender)}.16', m) 
-     user.pc = new Date * 1 
- } 
- 
+${user.banned ? 'kamu dibanned' : 'Saya adalah CUTE BOT, salah satu bot Whatsapp. harap tidak spam/telpon/minta save kemonor ini. Ada yang bisa saya bantu? (ㆁωㆁ)'}
+`.trim(), wm, user.register ? '⋮☰ Menu' : 'Verify', user.register ? '.menu' : `.daftar ${username}.13`, 'Rules', '.rules', 'Owner', '.owner', m)
+    user.pc = new Date * 1
+}
 
 module.exports = handler
 function ucapan() {
     const time = moment.tz('Asia/Jakarta').format('HH')
-    res = "Selamat dinihari"
+    res = "Selamat dinihari ☀️"
     if (time >= 4) {
-        res = "Selamat pagi 🌅"
+        res = "Good Morning 🌄"
     }
     if (time > 10) {
-        res = "Selamat siang 🏞️"
+        res = "Good Afternoon ☀️"
     }
     if (time >= 15) {
-        res = "Selamat sore 🌇"
+        res = "Good Afternoon 🌇"
     }
     if (time >= 18) {
-        res = "Selamat malam 🌌"
+        res = "Good Night 🌙"
     }
     return res
 }
