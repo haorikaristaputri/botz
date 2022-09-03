@@ -22,7 +22,7 @@ let fs = require('fs')
       
      // ketika ada yang invite/kirim link grup di chat pribadi 
      if ((m.mtype === 'groupInviteMessage' || m.text.startsWith('https://chat') || m.text.startsWith('Buka tautan ini')) && !m.isBaileys && !m.isGroup) { 
-         this.sendTemplate2ButtonLoc(m.chat, 'https://telegra.ph/file/d75ed6e82e964778e169e.jpg', `┌「 *Undang Bot ke Grup* 」 
+         this.send2ButtonLoc(m.chat, 'https://telegra.ph/file/d75ed6e82e964778e169e.jpg', `┌「 *Undang Bot ke Grup* 」 
  ├ 7 Hari / Rp 5,000 
  ├ 30 Hari / Rp 15,000 
  └──── 
@@ -32,17 +32,14 @@ let fs = require('fs')
      if (m.isGroup) { 
      if (m.fromMe) return 
      if (m.mentionedJid.includes(this.user.jid) && m.isGroup) { 
-             conn.sendMessage(m.chat, { 
-             react: { 
-                     text: conn.pickRandom(['🤭', '😤', '😴']), 
-                     key: m.key 
-             } 
-     })         
-             await this.send2ButtonLoc(m.chat, 'https://telegra.ph/file/96a78933baa32ab4829ca.jpg', m.msg.contextInfo.expiration == 604800 ? '\n\nketik *.ephe* untuk matiin pesan sementaranya, biar tombolnya bisa dipake' : `Ada Apa Ya Tag-Tag Saia @${m.sender.split`@`[0]}?\nApakah Ada Bansos ?`, wm, isBanned ? 'Unban' : banned ? 'Pemilik Bot' : 'Menu', 
-                 isBanned ? '.unban' : banned ? '.owner' : '.?', 
-                 m.isGroup ? 'Ban' : isBanned ? 'Unban' : 'Donasi', 
-                 m.isGroup ? '.ban' : isBanned ? '.unban' : '.donasi', m) 
-     } 
+ 	let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
+ 	let pp = await conn.profilePictureUrl(who, 'image').catch((_) => "https://telegra.ph/file/24fa902ead26340f3df2c.png")
+     conn.sendFile(m.chat, 'https://raw.githubusercontent.com/Ipulpachri/CntkaBotz-Md/main/ress.webp', 'haori.mp3', null, m, true, {
+type: 'audioMessage', 
+ptt: true, contextInfo: {
+        externalAdReply: { showAdAttribution: true, title: 'Ada Apa Ya Kak?', body: wm, sourceUrl: 'https://www.tiktok.com/@fory_whitecattiktok?_t=8V5TGON5rgv&_r=1', thumbnail: await (await fetch('https://telegra.ph/file/d2cf83e6d895f6721c616.jpg')).buffer(),}} 
+     })
+     }
  } 
       
      if (/^bot$/i.test(m.text)) { 
