@@ -629,7 +629,7 @@ module.exports = {
                 if (chat.welcome) {
                     let groupMetadata = await this.groupMetadata(id) || (conn.chats[id] || {}).metadata
                     for (let user of participants) {
-                        let pp = 'https://telegra.ph/file/2d06f0936842064f6b3bb.png'
+                        let pp = 'https://telegra.ph/file/24fa902ead26340f3df2c.png'
                         try {
                             pp = await this.profilePictureUrl(user, 'image')
                         } catch (e) {
@@ -651,7 +651,41 @@ module.exports = {
                                 groupname: await this.getName(id),
                                 membercount: groupMetadata.participants.length
                             })
-                             await this.sendButtonLoc(id, await conn.resize(pp, 300, 200), text, wm, action === 'add' ? 'Selamat Datang' : 'Sampai Jumpa', action === 'add' ? '.intro' : '-')  
+                             //await this.sendButtonLoc(id, await conn.resize(pp, 300, 200), text, wm, action === 'add' ? 'Selamat Datang' : 'Sampai Jumpa', action === 'add' ? '.intro' : '-')  
+              let flu = `${pickRandom(['https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=sketch-name&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextType=1&fillTextPattern=Warning!&text=', 'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=sketch-name&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextType=1&fillTextPattern=Warning!&fillColor1Color=%23f2aa4c&fillColor2Color=%23f2aa4c&fillColor3Color=%23f2aa4c&fillColor4Color=%23f2aa4c&fillColor5Color=%23f2aa4c&fillColor6Color=%23f2aa4c&fillColor7Color=%23f2aa4c&fillColor8Color=%23f2aa4c&fillColor9Color=%23f2aa4c&fillColor10Color=%23f2aa4c&fillOutlineColor=%23f2aa4c&fillOutline2Color=%23f2aa4c&backgroundColor=%23101820&text='])}`
+              let ori = await conn.resize(await (await fetch(flu + `HAI`)).buffer(), 300, 200)
+              let kelu = await conn.resize(await (await fetch(flu + `BYE`)).buffer(), 300, 200)
+              let wibh = moment.tz('Asia/Jakarta').format('HH')
+              let wibm = moment.tz('Asia/Jakarta').format('mm')
+              let wibs = moment.tz('Asia/Jakarta').format('ss')
+              let wktu = `${wibh} H ${wibm} M ${wibs} S`
+              const ftroli = {
+    key : {
+    remoteJid: 'status@broadcast',
+    participant : '0@s.whatsapp.net'
+    },
+    message: {
+    orderMessage: {
+    itemCount : 2022,
+    status: 1,
+    surface : 1,
+    message: `𝗧𝗜𝗠𝗘 : ${wktu}`, 
+    orderTitle: `▮Zivsan ▸`,
+    thumbnail: action === 'add' ? ori : kelu , //Gambarnye
+    sellerJid: '0@s.whatsapp.net' 
+    }
+    }
+    }
+ await conn.sendButtonDoc(id, text, wm, action == 'add' ? 'Selamat Datang' : 'Sampai Jumpa', action === 'add' ? '.intro' : 'Ziv San', ftroli,{
+  contextInfo: {mentionedJid: [user],
+    externalAdReply :{ showAdAttribution: true,
+    mediaType: 1, 
+    title: action === 'add' ? 'Selamat Datang Kak!' : 'Yahh.. kok keluar :‹',
+    thumbnail: await(await fetch(pp)).buffer(),
+    renderLargerThumbnail: true, 
+    sourceUrl: 'https://www.tiktok.com/@fory_whitecattiktok?_t=8VOIcAQQyCQ&_r=1'
+     }}
+    })
                          } 
                      } 
                  }
