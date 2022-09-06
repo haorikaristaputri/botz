@@ -6,33 +6,32 @@ let levelling = require('../lib/levelling')
  let jimp = require('jimp') 
  let PhoneNumber = require('awesome-phonenumber') 
  const defaultMenu = { 
-   before: `╭─ 「 *USER INFO* 」 
-│ •  Name %name! 
-│ •  Tersisa  *%limit Limit* 
-│ •  Role  *%role* 
-│ •  Level  *%level (%exp / %maxexp)* 
-│ •  %xp4levelup
-│ •  %totalexp XP secara Total 
-╰────
-╭─ 「 *TODAY* 」 
-│ •  Tanggal:  *%week %weton, %date* 
-│ •  Tanggal Islam:  *%dateIslamic* 
-│ •  Waktu:  *%time* 
-╰────
-╭─ 「 *INFO BOT* 」 
-│ •  Name Bot: *%me*
-│ •  Uptime:  *%uptime (%muptime)* 
-│ •  Database: %rtotalreg dari %totalreg 
-│ •  Memory Used :  *${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require('os').totalmem / 1024 / 1024)}MB* 
-╰────
+   before: `llı *USER*
+⬡ Name %name! 
+⬡ Tersisa  *%limit Limit* 
+⬡ Role  *%role* 
+⬡ Level  *%level (%exp / %maxexp)* 
+⬡ %xp4levelup
+⬡ %totalexp XP secara Total 
+  
+llı *TODAY*
+⬡ Tanggal:  *%week %weton, %date* 
+⬡ Tanggal Islam:  *%dateIslamic* 
+⬡ Waktu:  *%time* 
+ 
+llı *INFO BOT*
+⬡ Name Bot: *%me*
+⬡ Uptime:  *%uptime (%muptime)* 
+⬡ Database: %rtotalreg dari %totalreg 
+⬡ Memory Used :  *${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require('os').totalmem / 1024 / 1024)}MB* 
 %readmore`.trim(),
-  header: '╭─「 %category 」',
-  body: '│ • %cmd %islimit %isPremium',
-  footer: '╰────\n',
-  after: `
-*CUTE IQ-MD@^%version*
+  header: `˚₊· ͟͟͞͞%category ͟͟͞͞₊·˚`, 
+   body: '⸙͎۪۫  %cmd %islimit %isPremium', 
+   footer: '\n', 
+   after: `*⌕ %me@^%version*
 ${'```%npmdesc```'}
-`,
+ `,
+}
  let handler = async (m, { conn, usedPrefix: _p, args, command }) => { 
   
    let tags 
