@@ -45,11 +45,9 @@ let levelling = require('../lib/levelling')
          setTimeout(resolve, 1000) 
        }) * 1000 
      } 
-     let res = await fetch('https://raw.githubusercontent.com/ArugaZ/grabbed-results/main/random/anime/neko.txt') 
      let txt = await res.text() 
      let arr = txt.split('\n') 
      let cita = arr[Math.floor(Math.random() * arr.length)] 
-     let thumb = await(await fetch(cita)).buffer() 
        let vn = './media/tante-tante.mp3' 
      let uptime = clockString(_uptime) 
      let help = Object.values(global.plugins).filter(plugin => !plugin.disabled).map(plugin => { 
@@ -107,7 +105,7 @@ let tqto = `*BIG THANKS TO*
 • Penyedia Layanan API
 • Orang-orang yang Berdonasi` 
      text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-conn.send2ButtonDoc(m.chat, text.trim(), tqto,  '📊 DASHBORD', '.owner', '❗Rules', '.rules', m, { 
+conn.send2ButtonDoc(m.chat, text.trim(), tqto,  'DASHBORD', '.dashbord', 'RULES', '.rules', m, { 
      quoted: fkon, 
      contextInfo: { 
          externalAdReply :{ showAdAttribution: true, 
@@ -149,40 +147,6 @@ conn.send2ButtonDoc(m.chat, text.trim(), tqto,  '📊 DASHBORD', '.owner', '❗R
    let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60 
    return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':') 
  } 
- function logos() { 
-   const lgs = moment.tz('Asia/Jakarta').format('HH') 
-   res = "Selamat dinihari" 
-   if (lgs >= 4) { 
-     imp = 'https://telegra.ph/file/abff7903bd674a8f9d307.jpg' 
-   } 
-   if (lgs > 10) { 
-     imp = 'https://telegra.ph/file/ba940019735e224132f74.jpg' 
-   } 
-   if (lgs >= 15) { 
-     imp = 'https://telegra.ph/file/a332bbac803e3c631bb07.jpg' 
-   } 
-   if (lgs >= 18) { 
-     imp = 'https://telegra.ph/file/a5c91ab6c58c7be066654.jpg' 
-   } 
-   return imp 
- } 
- function dimas() { 
-   const varel = moment.tz('Asia/Jakarta').format('HH') 
-   res = "Selamat dinihari" 
-   if (varel >= 4) { 
-     dimrel = 'https://telegra.ph/file/8ed7c08f3c53efb3250e8.jpg' 
-   } 
-   if (varel > 10) { 
-     dimrel = 'https://telegra.ph/file/6e44f7a0ca634419fd6fe.jpg' 
-   } 
-   if (varel >= 15) { 
-     dimrel = 'https://telegra.ph/file/5d0efe9615a43d069d9fb.jpg' 
-   } 
-   if (varel >= 18) { 
-     dimrel = 'https://telegra.ph/file/b823c87f29294bf3bb9eb.jpg' 
-   } 
-   return dimrel 
- } 
  function ucapan() { 
    const time = moment.tz('Asia/Jakarta').format('HH') 
    res = "Selamat dinihari" 
@@ -199,25 +163,4 @@ conn.send2ButtonDoc(m.chat, text.trim(), tqto,  '📊 DASHBORD', '.owner', '❗R
      res = "Selamat malam 🌙" 
    } 
    return res 
- }
-  
-  async function genProfile(conn, m) { 
-   let font = await jimp.loadFont('./name.fnt'), 
-     mask = await jimp.read('https://i.imgur.com/552kzaW.png'), 
-     welcome = await jimp.read(thumbnailUrl.getRandom()), 
-     avatar = await jimp.read(await conn.profilePictureUrl(m.sender, 'image').catch(() => 'https://telegra.ph/file/24fa902ead26340f3df2c.png')), 
-     status = (await conn.fetchStatus(m.sender).catch(console.log) || {}).status?.slice(0, 30) || 'Not Detected' 
-  
-     await avatar.resize(460, 460) 
-     await mask.resize(460, 460) 
-     await avatar.mask(mask) 
-     await welcome.resize(welcome.getWidth(), welcome.getHeight()) 
-  
-     await welcome.print(font, 550, 180, 'Name:') 
-     await welcome.print(font, 650, 255, m.pushName.slice(0, 25)) 
-     await welcome.print(font, 550, 340, 'About:') 
-     await welcome.print(font, 650, 415, status) 
-     await welcome.print(font, 550, 500, 'Number:') 
-     await welcome.print(font, 650, 575, PhoneNumber('+' + m.sender.split('@')[0]).getNumber('international')) 
-     return await welcome.composite(avatar, 50, 170).getBufferAsync('image/png') 
  }
